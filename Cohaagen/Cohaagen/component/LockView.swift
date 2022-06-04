@@ -11,8 +11,6 @@ import Neumorphic
 
 struct LockView: View {
     
-    @StateObject var dataModel = DataModel()
-    
     @State private var simpleRightDirectionSliderOffsetX: CGFloat = 0
     @State private var simpleLeftDirectionSliderOffsetX: CGFloat = 0
     @State private var rectangularSliderOffsetX: CGFloat = 0
@@ -67,9 +65,8 @@ struct LockView: View {
                 print("color scheme changed to \(newValue)")
                 Color.Neumorphic.colorSchemeType = newValue == .dark ? .dark : .light
             }.navigate(to:  NavigationView {
-                GridView()
+                SymbolGrid()
             }
-            .environmentObject(dataModel)
             .navigationViewStyle(.stack), when: $alertPresented)
 
     }
