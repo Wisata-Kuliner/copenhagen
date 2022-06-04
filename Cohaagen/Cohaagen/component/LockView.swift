@@ -11,7 +11,7 @@ import Neumorphic
 
 struct LockView: View {
     
-    let persistenceController = PersistenceController.shared
+    @StateObject var dataModel = DataModel()
     
     @State private var simpleRightDirectionSliderOffsetX: CGFloat = 0
     @State private var simpleLeftDirectionSliderOffsetX: CGFloat = 0
@@ -66,8 +66,11 @@ struct LockView: View {
             .onChange(of: self.colorScheme) { newValue in
                 print("color scheme changed to \(newValue)")
                 Color.Neumorphic.colorSchemeType = newValue == .dark ? .dark : .light
-        }.navigate(to: ContentView()
-            .environment(\.managedObjectContext, persistenceController.container.viewContext), when: $alertPresented)
+            }.navigate(to:  NavigationView {
+                GridView()
+            }
+            .environmentObject(dataModel)
+            .navigationViewStyle(.stack), when: $alertPresented)
 
     }
 }
