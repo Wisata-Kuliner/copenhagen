@@ -9,10 +9,13 @@ struct ItemDetail: View {
     
     @StateObject var dataModel = DataModel()
     @State private var alertPresented: Bool = false
+    @State private var title: String = ""
+    @State var appView: AnyView
 
     var body: some View {
         VStack {
-            Text(symbolName)
+            
+            Text(self.title)
                 .font(.system(.largeTitle, design: .rounded))
             
             Image(symbolName)
@@ -21,18 +24,41 @@ struct ItemDetail: View {
                 .symbolRenderingMode(.hierarchical)
                 .foregroundColor(.accentColor)
                 .navigate(to: NavigationView {
-                    GridView()
+                    self.appView
                 }.environmentObject(dataModel).navigationViewStyle(.stack), when: $alertPresented)
                 .onTapGesture {
                     self.alertPresented = true
                 }
         }
         .padding()
+        .onAppear() {
+            checkSymbol()
+            checkView()
+        }
     }
+    
+    func checkSymbol() {
+        switch (symbolName) {
+        case "store":
+            self.title = "App Store"
+        default:
+            self.title = symbolName
+        }
+    }
+    
+    func checkView() {
+        switch (symbolName) {
+        case "drawbrylife":
+            self.appView = AnyView(DrawerView())
+        default:
+            self.appView = AnyView(GridView())
+        }
+    }
+    
 }
 
 struct Details_Previews: PreviewProvider {
     static var previews: some View {
-        ItemDetail(symbolName: "magnifyingglass")
+        ItemDetail(symbolName: "magnifyingglass", appView: AnyView(GridView()))
     }
 }

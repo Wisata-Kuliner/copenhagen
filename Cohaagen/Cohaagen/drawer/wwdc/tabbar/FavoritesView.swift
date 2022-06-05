@@ -4,7 +4,7 @@ See the License.txt file for this sample’s licensing information.
 
 import SwiftUI
 
-struct SymbolGrid: View {
+struct FavoritesView: View {
 
     @State private var isAddingSymbol = false
     @State private var isEditing = false
@@ -15,7 +15,7 @@ struct SymbolGrid: View {
     @State private var gridColumns = Array(repeating: GridItem(.flexible()), count: initialColumns)
     
     @State private var symbolNames = [
-        "store"
+        "store",
     ]
     
     var columnsText: String {
@@ -69,7 +69,7 @@ struct SymbolGrid: View {
         .navigationBarTitle("My Apps")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $isAddingSymbol, onDismiss: addSymbol) {
-            AppPicker(name: $selectedSymbolName)
+            FavoritesPicker(name: $selectedSymbolName)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -97,8 +97,8 @@ struct SymbolGrid: View {
     }
 }
 
-struct SymbolGridView_Previews: PreviewProvider {
+struct FavouritesView_Previews: PreviewProvider {
     static var previews: some View {
-        SymbolGrid()
+        FavoritesView()
     }
 }

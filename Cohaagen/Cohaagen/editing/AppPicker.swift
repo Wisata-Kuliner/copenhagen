@@ -4,7 +4,7 @@ See the License.txt file for this sample’s licensing information.
 
 import SwiftUI
 
-struct SymbolPicker: View {
+struct AppPicker: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var name: String?
 
@@ -17,7 +17,8 @@ struct SymbolPicker: View {
         "setting",
         "sunset",
         "tunes",
-        "university"
+        "university",
+        "drawbrylife"
     ]
 
     var body: some View {
@@ -43,8 +44,8 @@ struct SymbolPicker: View {
     }
 }
 
-struct SymbolPicker_Previews: PreviewProvider {
+struct AppPicker_Previews: PreviewProvider {
     static var previews: some View {
-        SymbolPicker(name: .constant(nil))
+        AppPicker(name: .constant(nil))
     }
 }
