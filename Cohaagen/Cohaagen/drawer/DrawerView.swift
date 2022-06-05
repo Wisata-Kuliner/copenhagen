@@ -43,6 +43,9 @@ struct DrawerView: View {
                     Label("Disclaimer", systemImage: "hand.thumbsup")
                 }
         }
+        .navigationBarTitle("")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
         
     }
 }

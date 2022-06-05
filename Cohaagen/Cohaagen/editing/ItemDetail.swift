@@ -18,23 +18,21 @@ struct ItemDetail: View {
             Text(self.title)
                 .font(.system(.largeTitle, design: .rounded))
             
-            Image(symbolName)
-                .resizable()
-                .scaledToFit()
-                .symbolRenderingMode(.hierarchical)
-                .foregroundColor(.accentColor)
-                .navigate(to: NavigationView {
-                    self.appView
-                }.environmentObject(dataModel).navigationViewStyle(.stack), when: $alertPresented)
-                .onTapGesture {
-                    self.alertPresented = true
-                }
+            NavigationLink(destination: self.appView.environmentObject(dataModel)) {
+                Image(symbolName)
+                    .resizable()
+                    .scaledToFit()
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundColor(.accentColor)
+            }
+            
         }
         .padding()
         .onAppear() {
             checkSymbol()
             checkView()
         }
+        
     }
     
     func checkSymbol() {
