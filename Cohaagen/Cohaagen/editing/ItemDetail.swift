@@ -4,6 +4,11 @@ See the License.txt file for this sample’s licensing information.
 
 import SwiftUI
 
+struct IdentifiableView: Identifiable {
+    let view: AnyView
+    let id = UUID()
+}
+
 struct ItemDetail: View {
     var symbolName: String
     
@@ -11,6 +16,8 @@ struct ItemDetail: View {
     @State private var alertPresented: Bool = false
     @State private var title: String = ""
     @State var appView: AnyView
+    
+    @State private var nextView: IdentifiableView? = nil
 
     var body: some View {
         VStack {
@@ -32,6 +39,9 @@ struct ItemDetail: View {
             checkSymbol()
             checkView()
         }
+        .fullScreenCover(item: self.$nextView, onDismiss: { nextView = nil}) { view in
+            view.view
+        }
         
     }
     
@@ -48,6 +58,7 @@ struct ItemDetail: View {
         switch (symbolName) {
         case "drawbrylife":
             self.appView = AnyView(DrawerView())
+            self.nextView = IdentifiableView(view: AnyView(DrawerView()))
         default:
             self.appView = AnyView(GridView())
         }
